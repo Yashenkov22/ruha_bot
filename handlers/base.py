@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 # from handlers.admin.base import admin_page
 from handlers.shop.base import show_categories, show_items_list, show_link
-from config import PROMO_ID, PIC_IDS
+from config import PROMO_ID
 from utils.delete_message import (try_delete_prev_message,
                                   add_message_for_delete)
 from utils.keyboards.main_keyboard import create_main_kb, create_close_kb
