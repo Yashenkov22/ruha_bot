@@ -69,7 +69,6 @@ async def create_db():
 #Endpoint for incoming updates
 @app.post(WEBHOOK_PATH)
 async def bot_webhook(update: dict):
-    print(update)
     tg_update = types.Update(**update)
     await dp.feed_update(bot=bot,
                          update=tg_update)
