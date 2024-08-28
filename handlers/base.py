@@ -9,7 +9,7 @@ from aiogram.exceptions import TelegramBadRequest
 from sqlalchemy.ext.asyncio import AsyncSession
 
 # from handlers.admin.base import admin_page
-from handlers.shop.base import show_categories, show_items_list
+from handlers.shop.base import show_categories, show_items_list, show_link
 from config import PROMO_ID, PIC_IDS
 from utils.delete_message import (try_delete_prev_message,
                                   add_message_for_delete)
@@ -38,13 +38,17 @@ async def main_page(message: Union[types.Message, types.CallbackQuery],
         if isinstance(message, types.CallbackQuery):
             message = message.message
         
-        photo = choice(PIC_IDS)
+        # photo = choice(PIC_IDS)
 
-        msg = await message.answer_photo(photo,
-                                         caption=txt,
-                                         disable_notification=True,
-                                         reply_markup=main_kb.as_markup(resize_keyboard=True,
-                                                                        one_time_keyboard=True))
+        # msg = await message.answer_photo(photo,
+        #                                  caption=txt,
+        #                                  disable_notification=True,
+        #                                  reply_markup=main_kb.as_markup(resize_keyboard=True,
+        #                                                                 one_time_keyboard=True))
+        msg = await message.answer(text=txt,
+                                   reply_markup=main_kb.as_markup(resize_keyboard=True,
+                                                                  one_time_keyboard=True))
+
 
         add_message_for_delete(data, msg)
         
@@ -88,26 +92,26 @@ async def to_shop(message: types.Message | types.CallbackQuery,
     await message.delete()
 
 
-@main_router.message(F.text == 'Творчество')
-async def to_art(message: types.Message | types.CallbackQuery,
-                 state: FSMContext,
-                 bot: Bot):
-    await try_delete_prev_message(bot, state)
+# @main_router.message(F.text == 'Творчество')
+# async def to_art(message: types.Message | types.CallbackQuery,
+#                  state: FSMContext,
+#                  bot: Bot):
+#     await try_delete_prev_message(bot, state)
 
-    await state.update_data(prev_msg=list())
-    data = await state.get_data()
+#     await state.update_data(prev_msg=list())
+#     data = await state.get_data()
 
-    art_kb = create_art_kb()
-    if isinstance(message, types.CallbackQuery):
-        message = message.message
+#     art_kb = create_art_kb()
+#     if isinstance(message, types.CallbackQuery):
+#         message = message.message
 
-    msg = await message.answer('Goji Art',
-                               disable_notification=True,
-                               reply_markup=art_kb.as_markup(resize_keyboard=True))
+#     msg = await message.answer('Goji Art',
+#                                disable_notification=True,
+#                                reply_markup=art_kb.as_markup(resize_keyboard=True))
     
-    add_message_for_delete(data, msg)
+#     add_message_for_delete(data, msg)
 
-    await message.delete()
+#     await message.delete()
 
 
 @main_router.message(F.text == 'В главное меню')
@@ -124,9 +128,9 @@ async def show_link(message: types.Message,
     # await message.delete()
 
 
-@main_router.message(F.photo)
-async def audio(message: types.Message):
-    await message.answer(message.photo[0].file_id)
+# @main_router.message(F.photo)
+# async def audio(message: types.Message):
+#     await message.answer(message.photo[0].file_id)
 
 
 @main_router.callback_query(F.data.startswith('close'))
@@ -170,12 +174,12 @@ async def get_back_to(callback: types.CallbackQuery,
                               session,
                               cat=category)
         
-    elif callback.data == 'to_art':
-        await state.clear()
-        await callback.answer('Вернул к творчеству')
-        await to_art(callback,
-                     state,
-                     bot)
+    # elif callback.data == 'to_art':
+    #     await state.clear()
+    #     await callback.answer('Вернул к творчеству')
+    #     await to_art(callback,
+    #                  state,
+    #                  bot)
         
     elif callback.data == 'to_admin_page':
         await state.clear()
@@ -184,6 +188,16 @@ async def get_back_to(callback: types.CallbackQuery,
                         state,
                         bot,
                         txt='Главное меню')
+
+
+@main_router.callback_query(F.data.startswith('write_to_saler'))
+async def close_up(callback: types.CallbackQuery,
+                   state: FSMContext,
+                   bot: Bot):
+    
+    await show_link(callback.message,
+                    bot,
+                    state)
 
 
 @main_router.message()

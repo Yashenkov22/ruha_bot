@@ -13,7 +13,7 @@ def create_shop_kb():
 
     shop_kb = ReplyKeyboardBuilder()
     shop_kb.row(types.KeyboardButton(text='Ассортимент'))
-    # main_kb.row(types.KeyboardButton(text='Промо'))
+    shop_kb.row(types.KeyboardButton(text='Промо'))
     shop_kb.row(types.KeyboardButton(text='Написать продавцу'))
     shop_kb.row(types.KeyboardButton(text='В главное меню'))
 
@@ -70,6 +70,9 @@ def create_photo_keyboard(kb_init: str):
         case 'end':
             photo_kb.add(types.InlineKeyboardButton(text='Предыдущая',
                                                     callback_data='photo_prev'))
+            
+    photo_kb.row(types.InlineKeyboardButton(text='Написать продавцу',
+                                            callback_data='write_to_saler'))
 
     photo_kb.row(types.InlineKeyboardButton(text='Назад',
                                             callback_data='to_items'))

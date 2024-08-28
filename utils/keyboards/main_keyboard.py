@@ -8,7 +8,7 @@ from utils.callbacks import CloseCallback
 def create_main_kb(user_id: int):
     main_kb = ReplyKeyboardBuilder()
     main_kb.add(types.KeyboardButton(text='Магазин'))
-    main_kb.add(types.KeyboardButton(text='Творчество'))
+    # main_kb.add(types.KeyboardButton(text='Творчество'))
 
     if user_id in ADMIN_IDS:
         main_kb.row(types.KeyboardButton(text='Админ панель'))

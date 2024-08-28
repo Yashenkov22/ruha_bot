@@ -31,12 +31,15 @@ async def show_categories(message: types.Message | types.CallbackQuery,
     
 
 @shop_router.message(F.text == 'Написать продавцу')
-async def show_link(message: types.Message,
+async def show_link(message: types.Message | types.CallbackQuery,
                     bot: Bot,
                     state: FSMContext):
     await try_delete_prev_message(bot, state)
 
-    await message.answer(f'Если возникли вопросы или предложения, пишите сюда https://t.me/dorriribka',
+    if isinstance(message, types.CallbackQuery):
+        message = message.message
+
+    await message.answer(f'Если возникли вопросы или предложения, пишите сюда @sayflame',
                          disable_notification=True,
                          reply_markup=create_close_kb('saler').as_markup())
     

@@ -47,7 +47,7 @@ async def admin_page(message: types.Message | types.CallbackQuery,
     if isinstance(message, types.CallbackQuery):
         message = message.message
     
-    msg = await message.answer('Whazz`up, Жижа',
+    msg = await message.answer('Добро пожаловать в змеиное логово 🐍',
                                disable_notification=True,
                                reply_markup=admin_kb.as_markup(resize_keyboard=True,
                                                                one_time_keyboard=True))
