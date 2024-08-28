@@ -43,7 +43,6 @@ app.add_middleware(
 event_loop = asyncio.get_event_loop()
 config = Config(app=app,
                 loop=event_loop,
-                workers=2,
                 host='0.0.0.0',
                 port=8000)
 server = Server(config)
