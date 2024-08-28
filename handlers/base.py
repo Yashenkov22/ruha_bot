@@ -80,7 +80,10 @@ async def show_promo(message: types.Message,
     
     await try_delete_prev_message(bot, state)
     
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 @main_router.message(F.text == 'Магазин')
@@ -102,7 +105,10 @@ async def to_shop(message: types.Message | types.CallbackQuery,
     
     add_message_for_delete(data, msg)
 
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 # @main_router.message(F.text == 'Творчество')

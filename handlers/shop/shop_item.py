@@ -31,7 +31,11 @@ async def init_current_item(callback: types.CallbackQuery,
         await state.update_data(photo_idx=0)
     
         await show_item(callback, state)
-        await callback.message.delete()
+        
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
 
 
 async def show_item(callback: types.CallbackQuery,

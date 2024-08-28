@@ -27,7 +27,10 @@ async def show_categories(message: types.Message | types.CallbackQuery,
                          disable_notification=True,
                          reply_markup=category_kb.as_markup())
     
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
     
 
 @shop_router.message(F.text == 'Написать продавцу')
@@ -45,7 +48,10 @@ async def show_link(message: types.Message | types.CallbackQuery,
                          disable_notification=True,
                          reply_markup=create_close_kb('saler').as_markup())
     
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 #Category button callback handler
@@ -65,4 +71,7 @@ async def show_items_list(callback: types.CallbackQuery,
         await callback.message.answer('Выбери товар',
                                       disable_notification=True,
                                       reply_markup=item_kb.as_markup())
-        await callback.message.delete()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass

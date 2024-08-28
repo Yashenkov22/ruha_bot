@@ -43,8 +43,11 @@ async def add_item_to_db(message: types.Message,
     await message.answer('Выбери категорию товара',
                          disable_notification=True,
                          reply_markup=keyboard.as_markup())
-    await message.delete()
-
+    
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 @item_router.callback_query(F.data.startswith('add_item'))
 async def start_add_item(callback: types.CallbackQuery | types.Message,
@@ -67,7 +70,11 @@ async def start_add_item(callback: types.CallbackQuery | types.Message,
         
         add_message_for_delete(data, msg)
 
+    try:
         await callback.message.delete()
+    except Exception:
+        pass
+
 
 
 @item_router.message(AddItem.name)
@@ -95,7 +102,10 @@ async def process_add_item(message: types.Message,
         msg = await message.answer('Напиши цену товара',
                                    disable_notification=True)
         
+    try:
         await message.delete()
+    except Exception:
+        pass
     
     add_message_for_delete(data, msg)
 
@@ -148,7 +158,10 @@ async def del_item_from_db(message: types.Message,
                          disable_notification=True,
                          reply_markup=keyboard.as_markup(),
                          parse_mode='html')
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 @item_router.callback_query(F.data.startswith('for_del_item'))
@@ -166,7 +179,10 @@ async def start_del_item(callback: types.CallbackQuery,
         await callback.message.answer('Выбери товар, который хочешь удалить',
                                       disable_notification=True,
                                       reply_markup=item_kb.as_markup())
+    try:
         await callback.message.delete()
+    except Exception:
+        pass
 
 
 @item_router.callback_query(F.data.startswith('select_item_for_del'))
@@ -183,7 +199,10 @@ async def start_del_item(callback: types.CallbackQuery,
                                   disable_notification=True,
                                   reply_markup=create_confirm_kb().as_markup(),
                                   parse_mode='html')
-    await callback.message.delete()
+    try:
+        await callback.message.delete()
+    except Exception:
+        pass
 ###############################################################################################
 
 
@@ -203,7 +222,10 @@ async def edit_item_in_db(message: types.Message,
     await message.answer('Выбери категорию товара',
                          disable_notification=True,
                          reply_markup=keyboard.as_markup())
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
     
 
 @item_router.callback_query(F.data.startswith('for_edit_item'))
@@ -217,7 +239,10 @@ async def start_edit_item(callback: types.CallbackQuery,
         await callback.message.answer('Выбери товар, который хочешь изменить',
                                       disable_notification=True,
                                       reply_markup=item_kb.as_markup())
+    try:
         await callback.message.delete()
+    except Exception:
+        pass
 
 
 @item_router.callback_query(F.data.startswith('select_item_for_edit'))
@@ -289,7 +314,10 @@ async def new_name_edit_item(message: types.Message,
             
             add_message_for_delete(data, msg)
 
-        await message.delete()
+        try:
+            await message.delete()
+        except Exception:
+            pass
 
 
 @item_router.message(EditItem.price)
@@ -325,7 +353,10 @@ async def new_price_edit_item(message: types.Message,
                              disable_notification=True,
                              reply_markup=create_confirm_kb().as_markup(),
                              parse_mode='html')
+    try:
         await message.delete()
+    except Exception:
+        pass
 ###############################################################################################
 
 
@@ -346,7 +377,10 @@ async def add_photo_to_item(message: types.Message,
                          disable_notification=True,
                          reply_markup=keyboard.as_markup())
     
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
     
 
 @item_router.callback_query(F.data.startswith('add_photo'))
@@ -360,7 +394,10 @@ async def start_add_photo(callback: types.CallbackQuery,
         await callback.message.answer('Выбери товар, к которому добавить фото',
                                       disable_notification=True,
                                       reply_markup=item_kb.as_markup())
-        await callback.message.delete()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
 
 
 @item_router.callback_query(F.data.startswith('item_for_add_photo'))
@@ -383,7 +420,10 @@ async def process_add_photo(callback: types.CallbackQuery,
 
     await state.set_state(AddPhoto.photo)
 
-    await callback.message.delete()
+    try:
+        await callback.message.delete()
+    except Exception:
+        pass
 
 @item_router.message(F.photo, AddPhoto.photo)
 @admin_only
@@ -402,7 +442,10 @@ async def load_photo(message: types.Message,
     
     add_message_for_delete(data, msg)
 
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 @item_router.message(F.text == 'Продолжить')
@@ -419,7 +462,10 @@ async def add_photo_in_state(message: types.Message,
                          disable_notification=True,
                          reply_markup=create_confirm_kb().as_markup(),
                          parse_mode='html')
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 ###############################################################################################
 
 
@@ -441,7 +487,10 @@ async def delete_photo_from_item(message: types.Message,
                          disable_notification=True,
                          reply_markup=keyboard.as_markup())
     
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 @item_router.callback_query(F.data.startswith('delete_photo'))
@@ -457,7 +506,10 @@ async def start_delete_photo(callback: types.CallbackQuery,
         await callback.message.answer('Выбери товар, у которому удалить фото',
                                       disable_notification=True,
                                       reply_markup=keyboard.as_markup())
-        await callback.message.delete()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
 
 
 @item_router.callback_query(F.data.startswith('item_for_delete_photo'))
@@ -481,7 +533,11 @@ async def process_delete_photo(callback: types.CallbackQuery,
         await state.update_data(photo_idx=0)
     
         await show_item_for_delete_photo(callback, state)
-        await callback.message.delete()
+        
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
 
 
 async def show_item_for_delete_photo(callback: types.CallbackQuery,
@@ -531,5 +587,7 @@ async def end_delete_photo(callback: types.CallbackQuery,
     await callback.message.answer_photo(photo,
                                         caption='Удалить фото?',
                                         reply_markup=create_confirm_kb().as_markup())
-    
-    await bot.delete_message(callback.message.chat.id, data['msg_on_del'].message_id)
+    try:
+        await bot.delete_message(callback.message.chat.id, data['msg_on_del'].message_id)
+    except Exception:
+        pass

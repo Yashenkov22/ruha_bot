@@ -83,8 +83,11 @@ async def manage_category(message: types.Message,
     data = await state.get_data()
 
     add_message_for_delete(data, msg)
-
-    await message.delete()
+    
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 @admin_router.message(F.text == 'Управление товарами')
@@ -108,7 +111,10 @@ async def manage_category(message: types.Message,
 
     add_message_for_delete(data, msg)
 
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 @admin_router.message(F.text == 'Управление фото')
@@ -132,7 +138,10 @@ async def manage_category(message: types.Message,
 
     add_message_for_delete(data, msg)
 
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 @admin_router.message(F.text == 'Управление артистами')
@@ -156,7 +165,10 @@ async def manage_category(message: types.Message,
 
     add_message_for_delete(data, msg)
 
-    await message.delete()
+    try:
+        await message.delete()
+    except Exception:
+        pass
 
 
 @admin_router.message(F.text == 'Назад в админ панель')

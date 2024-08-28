@@ -34,7 +34,10 @@ async def create_category(message: types.Message,
     
     await state.update_data(cat_msg=(cat_msg.chat.id, cat_msg.message_id))
 
-    await message.delete()
+    try: 
+        await message.delete()
+    except Exception:
+        pass
 
 
 @category_router.message(AddCategory.name)
@@ -56,7 +59,10 @@ async def start_category(message: types.Message,
                          reply_markup=create_confirm_kb().as_markup(),
                          parse_mode='html')
     
-    await message.delete()
+    try: 
+        await message.delete()
+    except Exception:
+        pass
 
 
 @category_router.message(F.text == 'Удалить категорию')
@@ -79,7 +85,10 @@ async def delete_category(message: types.Message,
                          reply_markup=keyboard.as_markup(),
                          parse_mode='html')
     
-    await message.delete()
+    try: 
+        await message.delete()
+    except Exception:
+        pass
 
 
 @category_router.callback_query(F.data.startswith('del_cat'))
@@ -94,4 +103,7 @@ async def delete_category(callback: types.CallbackQuery,
                                   disable_notification=True,
                                   reply_markup=create_confirm_kb().as_markup(),
                                   parse_mode='html')
-    await callback.message.delete()
+    try: 
+        await callback.message.delete()
+    except Exception:
+        pass
