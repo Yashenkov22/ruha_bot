@@ -10,7 +10,7 @@ def create_admin_kb():
     admin_kb.row(types.KeyboardButton(text='Управление категориями'))
     admin_kb.row(types.KeyboardButton(text='Управление товарами'))
     admin_kb.row(types.KeyboardButton(text='Управление фото'))
-    admin_kb.row(types.KeyboardButton(text='Управление артистами'))
+    # admin_kb.row(types.KeyboardButton(text='Управление артистами'))
 
     admin_kb.row(types.KeyboardButton(text='На главную'))
     

@@ -96,7 +96,7 @@ async def to_shop(message: types.Message | types.CallbackQuery,
     if isinstance(message, types.CallbackQuery):
         message = message.message
 
-    msg = await message.answer('Goji Shop',
+    msg = await message.answer('Добро пожаловать в змеиное логово 🐍',
                                disable_notification=True,
                                reply_markup=shop_kb.as_markup(resize_keyboard=True))
     

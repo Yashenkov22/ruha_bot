@@ -13,7 +13,7 @@ def create_shop_kb():
 
     shop_kb = ReplyKeyboardBuilder()
     shop_kb.row(types.KeyboardButton(text='Ассортимент'))
-    shop_kb.row(types.KeyboardButton(text='Промо'))
+    # shop_kb.row(types.KeyboardButton(text='Промо'))
     shop_kb.row(types.KeyboardButton(text='Написать продавцу'))
     shop_kb.row(types.KeyboardButton(text='В главное меню'))
 
