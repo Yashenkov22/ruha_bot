@@ -24,10 +24,10 @@ from handlers.art.base import art_router
 bot = Bot(TOKEN_API)
 
 dp = Dispatcher(storage=MemoryStorage())
-
 dp.include_router(admin_router)
 dp.include_router(shop_router)
-
+# dp.include_router(art_router)
+dp.include_router(main_router)
 dp.update.middleware(DbSessionMiddleware(session_pool=async_session))
 
 
