@@ -61,6 +61,7 @@ async def main_page(message: Union[types.Message, types.CallbackQuery],
 async def show_promo(message: types.Message,
                      bot: Bot,
                      state: FSMContext):
+    print(PROMO_ID)
     await message.answer_video(PROMO_ID,
                                disable_notification=True,
                                reply_markup=create_close_kb('promo').as_markup())
