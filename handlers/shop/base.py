@@ -44,7 +44,7 @@ async def show_link(message: types.Message | types.CallbackQuery,
     if isinstance(message, types.CallbackQuery):
         message = message.message
 
-    await message.answer(f'Если возникли вопросы или предложения, пишите сюда @sayflame',
+    await message.answer(f'По поводу заказа писать @sayflame',
                          disable_notification=True,
                          reply_markup=create_close_kb('saler').as_markup())
     
