@@ -58,6 +58,13 @@ async def main_page(message: Union[types.Message, types.CallbackQuery],
              pass
         
 
+@main_router.message(F.video)
+async def qwe(message: types.Message,
+              state: FSMContext,
+              bot: Bot):
+    print(message.video.file_id)
+
+
 async def show_promo(message: types.Message,
                      bot: Bot,
                      state: FSMContext):
