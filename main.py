@@ -66,6 +66,13 @@ async def create_db():
         await conn.run_sync(Base.metadata.create_all)
 
 
+#Endpoint for incoming updates
+@app.post(WEBHOOK_PATH)
+async def bot_webhook(update: dict):
+    tg_update = types.Update(**update)
+    await dp.feed_update(bot=bot, update=tg_update)
+
+
 # async def main():
 #     #Database connection
 #     engine = create_async_engine(db_url, echo=True)
