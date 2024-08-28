@@ -36,6 +36,8 @@ async def show_link(message: types.Message | types.CallbackQuery,
                     state: FSMContext):
     await try_delete_prev_message(bot, state)
 
+    await state.update_data(visited=None)
+
     if isinstance(message, types.CallbackQuery):
         message = message.message
 
