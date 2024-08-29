@@ -174,7 +174,8 @@ async def start_del_item(callback: types.CallbackQuery,
     item_kb = await create_items_kb(category, session, prefix='select_item_for_del')
 
     if item_kb is None:
-        await callback.answer('В категории нет товаров')
+        await callback.answer('В категории нет товаров',
+                              show_alert=True)
     else:
         await callback.message.answer('Выбери товар, который хочешь удалить',
                                       disable_notification=True,
