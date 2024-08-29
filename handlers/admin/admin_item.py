@@ -179,10 +179,10 @@ async def start_del_item(callback: types.CallbackQuery,
         await callback.message.answer('Выбери товар, который хочешь удалить',
                                       disable_notification=True,
                                       reply_markup=item_kb.as_markup())
-    try:
-        await callback.message.delete()
-    except Exception:
-        pass
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
 
 
 @item_router.callback_query(F.data.startswith('select_item_for_del'))

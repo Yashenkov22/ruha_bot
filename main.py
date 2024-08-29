@@ -58,7 +58,7 @@ async def on_startup():
     await bot.set_webhook(f"{PUBLIC_URL}{WEBHOOK_PATH}",
                           drop_pending_updates=True,
                           allowed_updates=['message', 'callback_query'])
-    await create_db()
+    # await create_db()
     
 
 async def create_db():
