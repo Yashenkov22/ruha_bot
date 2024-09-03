@@ -26,7 +26,7 @@ async def init_current_item(callback: types.CallbackQuery,
                               show_alert=True)
     else:
         await state.update_data(name=item.name)
-        await state.update_data(price=float(item.price))
+        await state.update_data(price=int(item.price))
         await state.update_data(photos=item_photos)
         await state.update_data(photo_idx=0)
     
