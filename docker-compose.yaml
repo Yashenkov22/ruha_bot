@@ -26,8 +26,8 @@ services:
   redis_db:
     image: redis:latest
     restart: on-failure
-    networks:
-      - common-network
+    # networks:
+    #   - common-network
     # ports:
     #   - 6379:6379
     env_file:
