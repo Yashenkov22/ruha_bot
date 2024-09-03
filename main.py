@@ -1,5 +1,7 @@
 import asyncio
 
+import redis.asyncio
+import redis.asyncio.client
 import uvicorn
 from uvicorn import Config, Server
 
@@ -9,10 +11,14 @@ from starlette.middleware.cors import CORSMiddleware
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.redis import RedisStorage
+
+# from redis import asyncio as redis
+import redis
 
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
-from config import TOKEN_API, db_url, PUBLIC_URL
+from config import TOKEN_API, db_url, PUBLIC_URL, REDIS_HOST, REDIS_PASSWORD
 from db.base import Base, engine, async_session
 from middlewares.db import DbSessionMiddleware
 from handlers.base import main_router
@@ -23,6 +29,12 @@ from handlers.art.base import art_router
 
 bot = Bot(TOKEN_API)
 
+#Initialize Redis storage
+redis_client = redis.asyncio.client.Redis(host=REDIS_HOST,
+                                          password=REDIS_PASSWORD)
+storage = RedisStorage(redis=redis_client)
+
+#Initialize Dispatcher
 dp = Dispatcher(storage=MemoryStorage())
 dp.include_router(admin_router)
 dp.include_router(shop_router)

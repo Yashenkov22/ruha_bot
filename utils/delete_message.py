@@ -12,8 +12,10 @@ async def try_delete_prev_message(bot: Bot,
         prev_msg = data['prev_msg']
 
         for msg in prev_msg:
-            await bot.delete_message(*msg)
-
+            try:
+                await bot.delete_message(*msg)
+            except Exception:
+                pass
         await state.update_data(prev_msg=None)
     else:
         pass

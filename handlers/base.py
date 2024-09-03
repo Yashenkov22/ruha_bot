@@ -157,12 +157,17 @@ async def close_up(callback: types.CallbackQuery,
                    state: FSMContext,
                    bot: Bot):
     data = callback.data.split('_')[-1]
+    
     if data == 'promo':
         await main_page(callback, state, bot, txt='Главное меню')
     else:
         await to_shop(callback.message,
                       state,
                       bot)
+    try:
+        await callback.answer()
+    except Exception:
+        pass
 
 
 @main_router.callback_query(F.data.startswith('to'))
@@ -214,7 +219,7 @@ async def close_up(callback: types.CallbackQuery,
                    state: FSMContext,
                    bot: Bot):
     
-    await show_link(callback.message,
+    await show_link(callback,
                     bot,
                     state)
 

@@ -23,6 +23,24 @@ services:
       - psql_db
     command: sh -c 'python main.py'
 
+  redis_db:
+    image: redis:latest
+    restart: on-failure
+    networks:
+      - common-network
+    # ports:
+    #   - 6379:6379
+    env_file:
+      - ./.env
+    command: redis-server --requirepass ${REDIS_PASSWORD} --save "" --appendonly no
+    # sh -c "echo 1 > /proc/sys/vm/overcommit_memory && redis-server --save 900 1 --loglevel warning"
+    volumes:
+      - redis_data:/data
+    logging:
+      driver: "json-file"
+      options:
+          max-size: "20m"
+
   psql_db:
     image: postgres:14
     restart: on-failure
@@ -43,3 +61,4 @@ services:
 
 volumes:
   postgres-data2:
+  redis_data:
