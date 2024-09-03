@@ -35,7 +35,7 @@ redis_client = redis.asyncio.client.Redis(host=REDIS_HOST,
 storage = RedisStorage(redis=redis_client)
 
 #Initialize Dispatcher
-dp = Dispatcher(storage=MemoryStorage())
+dp = Dispatcher(storage=storage)
 dp.include_router(admin_router)
 dp.include_router(shop_router)
 # dp.include_router(art_router)
