@@ -59,7 +59,9 @@ async def start_add_artist(message: types.Message,
         msg = await message.answer('Я же написал, меньше 21го символа, придумай по короче',
                                    disable_notification=True)
         
-        add_message_for_delete(data, msg)
+        await add_message_for_delete(data,
+                                     msg,
+                                     state)
 
         await add_artist(message,
                          state,

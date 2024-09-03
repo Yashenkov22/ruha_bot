@@ -55,7 +55,9 @@ async def admin_page(message: types.Message | types.CallbackQuery,
     await state.update_data(prev_msg=list())
     data = await state.get_data()
 
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
 
     try:    
         await message.delete()
@@ -82,7 +84,9 @@ async def manage_category(message: types.Message,
     await state.update_data(prev_msg=list())
     data = await state.get_data()
 
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
     
     try:
         await message.delete()
@@ -109,7 +113,9 @@ async def manage_category(message: types.Message,
     await state.update_data(prev_msg=list())
     data = await state.get_data()
 
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
 
     try:
         await message.delete()
@@ -136,7 +142,9 @@ async def manage_category(message: types.Message,
     await state.update_data(prev_msg=list())
     data = await state.get_data()
 
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
 
     try:
         await message.delete()
@@ -163,7 +171,9 @@ async def manage_category(message: types.Message,
     await state.update_data(prev_msg=list())
     data = await state.get_data()
 
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
 
     try:
         await message.delete()

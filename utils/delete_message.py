@@ -21,6 +21,9 @@ async def try_delete_prev_message(bot: Bot,
         pass
 
 
-def add_message_for_delete(data: dict[str, Any],
-                           msg: types.Message):
+async def add_message_for_delete(data: dict[str, Any],
+                                 msg: types.Message,
+                                 state: FSMContext):
     data['prev_msg'].append((msg.chat.id, msg.message_id))
+    
+    await state.update_data(data=data)

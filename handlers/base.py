@@ -50,7 +50,9 @@ async def main_page(message: Union[types.Message, types.CallbackQuery],
                                                                   one_time_keyboard=True))
 
 
-        add_message_for_delete(data, msg)
+        await add_message_for_delete(data,
+                                     msg,
+                                     state)
         
         try:
             await message.delete()
@@ -103,7 +105,9 @@ async def to_shop(message: types.Message | types.CallbackQuery,
                                disable_notification=True,
                                reply_markup=shop_kb.as_markup(resize_keyboard=True))
     
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
 
     try:
         await message.delete()

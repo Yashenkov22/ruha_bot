@@ -68,7 +68,9 @@ async def start_add_item(callback: types.CallbackQuery | types.Message,
                                             disable_notification=True,
                                             parse_mode='html')
         
-        add_message_for_delete(data, msg)
+        await add_message_for_delete(data,
+                                     msg,
+                                     state)
 
     try:
         await callback.message.delete()
@@ -107,7 +109,9 @@ async def process_add_item(message: types.Message,
     except Exception:
         pass
     
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
 
 
 @item_router.message(AddItem.price)
@@ -121,7 +125,9 @@ async def end_add_item(message: types.Message,
 
         msg = await message.answer('Цифрами напиши, голова',
                                    disable_notification=True)
-        add_message_for_delete(data, msg)
+        await add_message_for_delete(data,
+                                     msg,
+                                     state)
         
         await process_add_item(message, state, bot)
     else:
@@ -273,7 +279,9 @@ async def process_edit_item(callback: types.CallbackQuery | types.Message,
                                             disable_notification=True,
                                             parse_mode='html')
         
-        add_message_for_delete(data, msg)
+        await add_message_for_delete(data,
+                                     msg,
+                                     state)
 
     try:
         await callback.delete()
@@ -294,7 +302,9 @@ async def new_name_edit_item(message: types.Message,
         
         data = await state.get_data()
 
-        add_message_for_delete(data, msg)
+        await add_message_for_delete(data,
+                                     msg,
+                                     state)
 
         await process_edit_item(message,
                                 state,
@@ -313,7 +323,9 @@ async def new_name_edit_item(message: types.Message,
                                     disable_notification=True,
                                     parse_mode='html')
             
-            add_message_for_delete(data, msg)
+            await add_message_for_delete(data,
+                                         msg,
+                                         state)
 
         try:
             await message.delete()
@@ -336,7 +348,9 @@ async def new_price_edit_item(message: types.Message,
 
             msg = await message.answer('Цифрами напиши, голова',
                                        disable_notification=True,)
-            add_message_for_delete(data, msg)
+            await add_message_for_delete(data,
+                                         msg,
+                                         state)
 
             await new_name_edit_item(message, state, session, retry=True)
         else:
@@ -417,7 +431,9 @@ async def process_add_photo(callback: types.CallbackQuery,
                                         disable_notification=True,
                                         parse_mode='html')
 
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
 
     await state.set_state(AddPhoto.photo)
 
@@ -441,7 +457,9 @@ async def load_photo(message: types.Message,
                                disable_notification=True,
                                reply_markup=load_photo_kb().as_markup(resize_keyboard=True))
     
-    add_message_for_delete(data, msg)
+    await add_message_for_delete(data,
+                                 msg,
+                                 state)
 
     try:
         await message.delete()
