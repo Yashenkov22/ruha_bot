@@ -131,7 +131,7 @@ async def end_add_item(message: types.Message,
         
         await process_add_item(message, state, bot)
     else:
-        await state.update_data(price=price)
+        await state.update_data(price=int(price))
         data = await state.get_data()
         await message.answer(f'Создать товар <b>{data["name"].capitalize()}</b> в категории <b>{data["category"]}</b>?',
                              disable_notification=True,
