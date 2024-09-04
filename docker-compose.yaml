@@ -26,7 +26,7 @@ services:
     command: sh -c 'python main.py'
 
   redis_db:
-    image: redis:latest
+    image: redis:alpine
     restart: on-failure
     # networks:
     #   - common-network

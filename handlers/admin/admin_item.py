@@ -264,10 +264,14 @@ async def process_edit_item(callback: types.CallbackQuery | types.Message,
 
         old_item = await select_current_item(session, name)
         old_item = old_item[0]
-        old_item_dict: dict = old_item.__dict__
-        old_item_dict.pop('_sa_instance_state')
-        old_item_dict['price'] = float(old_item_dict['price'])
-        # print(old_item_dict)
+        
+        old_item_dict = {
+            'name': old_item.name,
+            'category': old_item.category,
+            'price': float(old_item.price),
+            'id': old_item.id,
+            }
+
         await state.update_data(old_item=old_item_dict)
         
         await state.update_data(prev_msg=list())
