@@ -264,9 +264,10 @@ async def process_edit_item(callback: types.CallbackQuery | types.Message,
 
         old_item = await select_current_item(session, name)
         old_item = old_item[0]
-        old_item_dict = old_item.__dict__
+        old_item_dict: dict = old_item.__dict__
+        old_item_dict.pop('_sa_instance_state')
         print(old_item_dict)
-        await state.update_data(old_item=old_item)
+        await state.update_data(old_item=old_item_dict)
         
         await state.update_data(prev_msg=list())
         data = await state.get_data()
@@ -277,7 +278,7 @@ async def process_edit_item(callback: types.CallbackQuery | types.Message,
         callback = callback.message
 
     if retry is None:
-        msg = await callback.answer(f'Напиши новое имя товара(Старое: <b>{data["old_item"].name}</b>)\nЕсли не хочешь менять имя напиши <b>Нет</b>',
+        msg = await callback.answer(f'Напиши новое имя товара(Старое: <b>{data["old_item"]["name"]}</b>)\nЕсли не хочешь менять имя напиши <b>Нет</b>',
                                             disable_notification=True,
                                             parse_mode='html')
         
@@ -317,7 +318,7 @@ async def new_name_edit_item(message: types.Message,
         if not data.get('name'):
             await state.update_data(name=message.text.capitalize())
 
-        old_price = round(data['old_item'].price, 2)
+        old_price = round(data['old_item']["price"], 2)
         await state.set_state(EditItem.price)
 
         if retry is None:
@@ -362,11 +363,11 @@ async def new_price_edit_item(message: types.Message,
 
     if data.get('price'):
         old_item = data['old_item']
-        old_descr = f'Название: {old_item.name}, Цена: {round(old_item.price)}'
+        old_descr = f'Название: {old_item["name"]}, Цена: {round(old_item["price"])}'
         new_name = '(Не изменилось)' if data['name'] == 'Нет' else data['name']
         new_price = '(Не именилась)' if data['price'] == 'Нет' else data['price']
         new_descr = f'Название: {new_name}, Цена: {new_price}'
-        await message.answer(f'Изменить товар <b>{old_item.name}</b> из категории <b>{old_item.category}</b>?\nБыло: {old_descr}\nСтало: {new_descr}',
+        await message.answer(f'Изменить товар <b>{old_item["name"]}</b> из категории <b>{old_item["category"]}</b>?\nБыло: {old_descr}\nСтало: {new_descr}',
                              disable_notification=True,
                              reply_markup=create_confirm_kb().as_markup(),
                              parse_mode='html')
