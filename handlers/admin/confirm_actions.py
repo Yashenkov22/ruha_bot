@@ -72,13 +72,14 @@ async def del_item_action(callback: types.CallbackQuery,
 async def edit_item_action(callback: types.CallbackQuery,
                          session: AsyncSession,
                          data: dict):
-    new_data = {}
     old_item = data['old_item']
-    new_data['id'] = old_item.id
-    new_data['name'] = old_item.name if data['name'] == 'Нет' else data['name']
-    new_data['price'] = old_item.price if data['price'] == 'Нет' else data['price']
+
+    new_data = {}
+    new_data['id'] = old_item['id']
+    new_data['name'] = old_item['name'] if data['name'] == 'Нет' else data['name']
+    new_data['price'] = old_item['price'] if data['price'] == 'Нет' else data['price']
     
-    if old_item.name == new_data['name'] and int(old_item.price) == new_data['price']:
+    if old_item['name'] == new_data['name'] and int(old_item['price']) == new_data['price']:
         await callback.answer('Товар остался таким же',
                                 show_alert=True)
     else:
