@@ -266,7 +266,8 @@ async def process_edit_item(callback: types.CallbackQuery | types.Message,
         old_item = old_item[0]
         old_item_dict: dict = old_item.__dict__
         old_item_dict.pop('_sa_instance_state')
-        print(old_item_dict)
+        old_item_dict['price'] = float(old_item_dict['price'])
+        # print(old_item_dict)
         await state.update_data(old_item=old_item_dict)
         
         await state.update_data(prev_msg=list())
