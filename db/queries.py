@@ -86,6 +86,6 @@ async def delete_artist(session: AsyncSession, data: dict[str, Any]):
         await session.execute(delete(Artist).where(Artist.name == data['name']))
 
 
-async def delete_photo(session: AsyncSession, data: [str, Any]):
+async def delete_photo(session: AsyncSession, data: dict[str, Any]):
     async with session.begin():
         await session.execute(delete(Photo).where(Photo.photo_id == data['photo_to_delete']))

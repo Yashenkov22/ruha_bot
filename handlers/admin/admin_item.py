@@ -264,6 +264,8 @@ async def process_edit_item(callback: types.CallbackQuery | types.Message,
 
         old_item = await select_current_item(session, name)
         old_item = old_item[0]
+        old_item_dict = old_item.__dict__
+        print(old_item_dict)
         await state.update_data(old_item=old_item)
         
         await state.update_data(prev_msg=list())
