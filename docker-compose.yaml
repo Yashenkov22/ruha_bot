@@ -1,6 +1,7 @@
 services:
   ngrok:
     image: ngrok/ngrok:latest
+    restart: on-failure
     volumes:
       - ./ngrok.yml:/etc/ngrok.yml
     command:
@@ -11,6 +12,7 @@ services:
   
   bot:
     build: .
+    restart: on-failure
     environment:
       - POSTGRES_HOST=psql_db
     env_file:
