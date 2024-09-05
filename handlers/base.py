@@ -33,6 +33,8 @@ async def main_page(message: Union[types.Message, types.CallbackQuery],
         main_kb = create_main_kb(message.from_user.id)
 
         await state.update_data(prev_msg=list())
+        await state.update_data(visited=None)
+        
         data = await state.get_data()
         
         if isinstance(message, types.CallbackQuery):

@@ -53,6 +53,8 @@ async def admin_page(message: types.Message | types.CallbackQuery,
                                                                one_time_keyboard=True))
 
     await state.update_data(prev_msg=list())
+    await state.update_data(visited=None)
+    
     data = await state.get_data()
 
     await add_message_for_delete(data,
