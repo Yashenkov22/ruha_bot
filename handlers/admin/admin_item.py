@@ -586,7 +586,7 @@ async def show_item_for_delete_photo(callback: types.CallbackQuery,
                                                           type='photo'),
                                           reply_markup=photo_kb.as_markup())
         
-    await state.update_data(msg_on_del=msg_on_del)
+    await state.update_data(msg_on_del=msg_on_del.message_id)
         
 
 @item_router.callback_query(F.data.startswith('del_photo'))
@@ -615,6 +615,6 @@ async def end_delete_photo(callback: types.CallbackQuery,
                                         caption='Удалить фото?',
                                         reply_markup=create_confirm_kb().as_markup())
     try:
-        await bot.delete_message(callback.message.chat.id, data['msg_on_del'].message_id)
+        await bot.delete_message(callback.message.chat.id, data['msg_on_del'])
     except Exception:
         pass
