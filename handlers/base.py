@@ -97,6 +97,7 @@ async def to_shop(message: types.Message | types.CallbackQuery,
     await try_delete_prev_message(bot, state)
 
     await state.update_data(prev_msg=list())
+    await state.update_data(visited=None)
     data = await state.get_data()
 
     shop_kb = create_shop_kb()
