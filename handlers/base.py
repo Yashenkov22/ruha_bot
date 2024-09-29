@@ -100,6 +100,8 @@ async def to_shop(message: types.Message | types.CallbackQuery,
     await state.update_data(visited=None)
     data = await state.get_data()
 
+    print(data)
+
     shop_kb = create_shop_kb()
     if isinstance(message, types.CallbackQuery):
         message = message.message
