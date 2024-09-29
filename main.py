@@ -32,9 +32,7 @@ bot = Bot(TOKEN_API)
 #Initialize Redis storage
 redis_client = redis.asyncio.client.Redis(host=REDIS_HOST,
                                           password=REDIS_PASSWORD)
-storage = RedisStorage(redis=redis_client,
-                       state_ttl=0,
-                       data_ttl=0)
+storage = RedisStorage(redis=redis_client)
 
 #Initialize Dispatcher
 dp = Dispatcher(storage=storage)
