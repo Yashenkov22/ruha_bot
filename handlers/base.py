@@ -94,13 +94,13 @@ async def show_promo(message: types.Message,
 async def to_shop(message: types.Message | types.CallbackQuery,
                   state: FSMContext,
                   bot: Bot):
+    data = await state.get_data()
+    print(data)
     await try_delete_prev_message(bot, state)
 
     await state.update_data(prev_msg=list())
     await state.update_data(visited=None)
-    data = await state.get_data()
 
-    print(data)
 
     shop_kb = create_shop_kb()
     if isinstance(message, types.CallbackQuery):
